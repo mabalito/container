@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Jp\Container;
 
 use Dice\Dice;
-use Exception;
 use Psr\Container\ContainerInterface;
+use Throwable;
 
 class DiceContainer implements ContainerInterface
 {
@@ -45,13 +45,13 @@ class DiceContainer implements ContainerInterface
     public function get($id)
     {
         if (!$this->has($id)) {
-            throw new NotFoundException();
+            throw new NotFoundException('No entry was found for ' . $id);
         }
 
         try {
             return $this->dice->create($id);
-        } catch (Exception $e) {
-            throw new ContainerException();
+        } catch (Throwable $e) {
+            throw new ContainerException('Error while retrieving ' . $id);
         }
     }
 
