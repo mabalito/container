@@ -51,7 +51,9 @@ class DiceContainer implements ContainerInterface
         try {
             return $this->dice->create($id);
         } catch (Throwable $e) {
-            throw new ContainerException('Error while retrieving ' . $id);
+            throw new ContainerException(
+            	'Error while retrieving ' . $id . ': ' . $e->getMessage()
+            );
         }
     }
 
